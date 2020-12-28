@@ -1,0 +1,384 @@
+[
+	{"name":"GLOBAL_PAGE",
+	 
+		"texts": [
+		{
+			"name": "GLOBAL_PAGE_PAGING_FIRST",
+			"values": [
+	          	{
+	          		"value": "First",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+     	{
+			"name": "GLOBAL_PAGE_SEARCH_BUTTON",
+			"values": [
+	          	{
+	          		"value": "Go!",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_MENU_OPTION_DELETE",
+			"values": [
+	          	{
+	          		"value": "Delete",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_SEARCH_INPUT",
+			"values": [
+	          	{
+	          		"value": "Search for...",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_PAGING_SHOW_ENTRIES",
+			"values": [
+	          	{
+	          		"value": "Showing {listStart} to {listLimit} of {itemCount} entries",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_BUTTON_ACCEPT",
+			"values": [
+	          	{
+	          		"value": "Save",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_FORM_HEADER_CREATE",
+			"values": [
+	          	{
+	          		"value": "Create",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_PAGING_NEXT",
+			"values": [
+	          	{
+	          		"value": "Next",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+       	{
+			"name": "GLOBAL_PAGE_PAGING_LAST",
+			"values": [
+	          	{
+	          		"value": "Last",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},     
+        {
+			"name": "GLOBAL_PAGE_PAGING_PREV",
+			"values": [
+	          	{
+	          		"value": "Prev",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},    
+        {
+			"name": "GLOBAL_PAGE_MENU_OPTION_ADD",
+			"values": [
+	          	{
+	          		"value": "Add",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},  
+		{
+			"name": "GLOBAL_PAGE_LIST_EMPTY",
+			"values": [
+	          	{
+	          		"value": "No items available",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_BUTTON_DECLINE",
+			"values": [
+	          	{
+	          		"value": "Cancel",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_FORM_HEADER_MODIFY",
+			"values": [
+	          	{
+	          		"value": "Modify",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_TRUE_FALSE_OPTIONS",
+			"values": [
+	          	{
+	          		"value": "{\"options\":[{\"label\":\"True\",\"value\":true,\"defaultInd\":true},{\"label\":\"False\",\"value\":false}]}}",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_FALSE_TRUE_OPTIONS",
+			"values": [
+	          	{
+	          		"value": "{\"options\":[{\"label\":\"False\",\"value\":false,\"defaultInd\":true},{\"label\":\"True\",\"value\":true}]}}",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_YES_NO_OPTIONS",
+			"values": [
+	          	{
+	          		"value": "{\"options\":[{\"label\":\"Yes\",\"value\":true,\"defaultInd\":true},{\"label\":\"No\",\"value\":false}]}}",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_NO_YES_OPTIONS",
+			"values": [
+	          	{
+	          		"value": "{\"options\":[{\"label\":\"No\",\"value\":false,\"defaultInd\":true},{\"label\":\"Yes\",\"value\":true}]}}",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_SEVERITY_OPTIONS",
+			"values": [
+	          	{
+	          		"value": "{\"options\":[{\"label\":\"Critical\",\"value\":\"CRITICAL\"},{\"label\":\"Major\",\"value\":\"MAJOR\"},{\"label\":\"Minor\",\"value\":\"MINOR\"},{\"label\":\"Info\",\"value\":\"INFO\",\"defaultInd\":true}]}",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_PAGE_ACTIVE_OPTIONS",
+			"values": [
+	          	{
+	          		"value": "{\"options\":[{\"label\":\"Active\",\"value\":true,\"defaultInd\":true},{\"label\":\"Disable\",\"value\":false}]}",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		}
+		
+      ],
+      "options": [
+      	{
+			"name": "GLOBAL_PAGE_LISTLIMIT",
+			"valueType": "Integer",
+            "defaultValue": "20",
+            "useDefault": false,
+			"values": [
+	          	{
+	          		"value": "20",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+      	{
+			"name": "GLOBAL_PAGE_LISTLIMIT_SELECT",
+			"valueType": "JSON",
+            "defaultValue": "[{\"k\":20,\"v\":20}]",
+            "useDefault": false,
+			"values": [
+	          	{
+	          		"value": "[{\"k\":20,\"v\":20},{\"k\":50,\"v\":50},{\"k\":100,\"v\":100}]",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+      	{
+			"name": "GLOBAL_PAGE_LISTLIMIT_MAX",
+			"valueType": "Integer",
+            "defaultValue": "200",
+            "useDefault": false,
+			"values": [
+	          	{
+	          		"value": "200",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		}
+      ]
+	},
+	{"name":"GLOBAL_SERVICE",
+	 
+		"texts": [
+		{
+			"name": "GLOBAL_SERVICE_VALIDATION_ERROR",
+			"values": [
+	          	{
+	          		"value": "Validation Error!",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_DISABLED",
+			"values": [
+	          	{
+	          		"value": "This service is currently disabled.",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_ACCESS_DENIED",
+			"values": [
+	          	{
+	          		"value": "Access Denied.",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_SAVE_SUCCESS",
+			"values": [
+	          	{
+	          		"value": "Save Successful",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_SAVE_FAIL",
+			"values": [
+	          	{
+	          		"value": "Save Failed",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_DELETE_SUCCESS",
+			"values": [
+	          	{
+	          		"value": "Delete Successful",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_DELETE_FAIL",
+			"values": [
+	          	{
+	          		"value": "Delete Failed",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_ACTION_NOT_AVAIL",
+			"values": [
+	          	{
+	          		"value": "Action not available",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_VALIDATION_ERR",
+			"values": [
+	          	{
+	          		"value": "Validation Error",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_UNABLE_COMPLETE",
+			"values": [
+	          	{
+	          		"value": "Unable to complete request",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_EXECUTION_FAIL",
+			"values": [
+	          	{
+	          		"value": "Execution Failed",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_MISSING_ID",
+			"values": [
+	          	{
+	          		"value": "Missing ID",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		},
+		{
+			"name": "GLOBAL_SERVICE_NO_ITEMS",
+			"values": [
+	          	{
+	          		"value": "No Items",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		}
+		]
+	}
+]

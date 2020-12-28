@@ -1,0 +1,63 @@
+[
+	{"name":"CONTROLLER_PAGE",
+      "labels": [
+		{
+        	"name": "CONTROLLER_TABLE_NAME",
+        	"tabIndex":1,
+        	"group":"TABLE1",
+        	"optionalParams":"{\"field\":\"name\"}",
+        	"sortOrder":0,
+          	"values": [
+          		{
+          			"value": "Name",
+          			"lang": "en",
+          			"rendered": true
+          		}
+          	]
+        },
+        {
+        	"name": "CONTROLLER_TABLE_STATUS",
+			"tabIndex":2,
+			"group":"TABLE1",
+			"optionalParams":"{\"fieldBool\":\"active\",\"labelTrue\":{\"defaultText\":\"Active\",\"en\":\"Active\",\"es\":\"Activo\"},\"labelFalse\":{\"defaultText\":\"Disabled\",\"en\":\"Disabled\",\"es\":\"Inhabilitar\"}}",
+			"sortOrder":1,
+          	"values": [
+          		{
+          			"value": "Status",
+          			"lang": "en",
+          			"rendered": true,
+          			"order": 0
+          		}
+          	]
+        },
+        {
+        	"name": "CONTROLLER_TABLE_OPTIONS",
+        	"tabIndex":1,
+        	"group":"TABLE1",
+        	"optionalParams":"{\"fieldIcon\":[{\"code\":\"PLUGS\",\"classField\":\"fas fa-plug fa-1\",\"permission\":{\"ARDR\":\"W\"},\"label\":{\"en\":\"Plugs\"}},{\"code\":\"SENSORS\",\"classField\":\"fa fa-circle-o-notch fa-1\",\"permission\":{\"ARDR\":\"W\"},\"label\":{\"en\":\"Sensors\"}}]}",
+        	"sortOrder":2,
+          	"values": [
+          		{
+          			"value": "Options",
+          			"lang": "en",
+          			"rendered": true,
+          			"order": 0
+          		}
+          	]
+        }
+       ],
+      "texts": [
+      	{
+            "name": "CONTROLLER_PAGE_HEADER",
+            "values": [
+              	{
+              		"value": "Controllers",
+              		"lang": "en",
+              		"rendered": true
+              	}
+              ]
+        }
+        
+      ]
+	}
+]

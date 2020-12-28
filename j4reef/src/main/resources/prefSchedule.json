@@ -1,0 +1,234 @@
+[
+	{"name":"SCHEDULE_FORM",
+		"formFields": [
+		{
+        	"name": "SCHEDULE_FORM_NAME",
+        	"fieldType": "TXT",
+          	"htmlType": "text",
+          	"tabIndex": 1,
+          	"group": "FORM1",
+          	"sortOrder": 0,
+          	"classModel":"{\"clazz\":\"org.pidragon.model.Schedule\",\"field\":\"name\",\"type\":\"String\"}",
+          	"values": [
+          		{
+          			"value": "",
+          			"label": "Name:",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": true,
+          			"validation": "{\"regex\":\"^[a-zA-Z0-9_#!@. ]*$\",\"errorMsg\":\"Validation Error: Must be a-zA-Z, 0-9, _, #, !, @ or . but no spaces\"}"
+          		}
+          	]
+        },
+        {
+        	"name": "SCHEDULE_FORM_START_HOUR",
+        	"fieldType": "INT",
+          	"htmlType": "number",
+          	"tabIndex": 2,
+          	"group": "FORM1",
+          	"sortOrder": 1,
+          	"optionalParams":"{\"min\":0,\"max\":23}",
+          	"classModel":"{\"clazz\":\"org.pidragon.model.Schedule\",\"field\":\"startHour\",\"type\":\"Integer\"}",
+          	"values": [
+          		{
+          			"value": "",
+          			"label": "Start Hour (Military time 0-23):",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": true,
+          			"validation": "{\"regex\":\"^(2[0-3]|1[0-9]|[0-9])$\",\"errorMsg\":\"Must be an integer between 0 and 23\"}"
+          		}
+          	]
+        },
+        {
+        	"name": "SCHEDULE_FORM_START_MINUTE",
+        	"fieldType": "INT",
+          	"htmlType": "number",
+          	"tabIndex": 3,
+          	"group": "FORM1",
+          	"sortOrder": 2,
+          	"optionalParams":"{\"min\":0,\"max\":59}",
+          	"classModel":"{\"clazz\":\"org.pidragon.model.Schedule\",\"field\":\"startMinute\",\"type\":\"Integer\"}",
+          	"values": [
+          		{
+          			"value": "",
+          			"label": "Start Minute (0-59):",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": true,
+          			"validation": "{\"regex\":\"^(5[0-9]|[1-4][0-9]|[0-9])$\",\"errorMsg\":\"Must be an integer between 0 and 59\"}"
+          		}
+          	]
+        },
+        {
+        	"name": "SCHEDULE_FORM_END_HOUR",
+        	"fieldType": "INT",
+          	"htmlType": "text",
+          	"tabIndex": 4,
+          	"group": "FORM1",
+          	"sortOrder": 3,
+          	"classModel":"{\"clazz\":\"org.pidragon.model.Schedule\",\"field\":\"endHour\",\"type\":\"Integer\"}",
+          	"values": [
+          		{
+          			"value": "",
+          			"label": "End Hour:",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": true,
+          			"validation": "{\"regex\":\"^[0-9]*$\",\"errorMsg\":\"Must be an integer\"}"
+          		}
+          	]
+        },
+        {
+        	"name": "SCHEDULE_FORM_END_MINUTE",
+        	"fieldType": "INT",
+          	"htmlType": "text",
+          	"tabIndex": 5,
+          	"group": "FORM1",
+          	"sortOrder": 4,
+          	"classModel":"{\"clazz\":\"org.pidragon.model.Schedule\",\"field\":\"endMinute\",\"type\":\"Integer\"}",
+          	"values": [
+          		{
+          			"value": "",
+          			"label": "End Hour:",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": true,
+          			"validation": "{\"regex\":\"^[0-9]*$\",\"errorMsg\":\"Must be an integer\"}"
+          		}
+          	]
+        },
+        {
+        	"name": "SCHEDULE_FORM_MODE",
+        	"fieldType": "SLT",
+          	"htmlType": "text",
+          	"tabIndex": 6,
+          	"group": "FORM1",
+          	"sortOrder": 5,
+          	"classModel":"{\"clazz\":\"org.pidragon.model.Schedule\",\"field\":\"mode\",\"type\":\"String\"}",
+          	"values": [
+          		{
+          			"value": "{\"options\":[{\"value\":\"CONTINUOUS\",\"label\":\"Continuous\",\"defaultInd\":true},{\"value\":\"WAVE\",\"label\":\"Wave\"},{\"value\":\"OFF\",\"label\":\"Off\"}]}",
+          			"label": "Mode:",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": true,
+          			"validation": "{\"regex\":\"^[a-zA-Z0-9_#!@.]*$\",\"errorMsg\":\"Validation Error\"}"
+          		}
+          	]
+        },
+        {
+        	"name": "SCHEDULE_FORM_WAVE_ON",
+        	"fieldType": "INT",
+          	"htmlType": "text",
+          	"tabIndex": 7,
+          	"group": "FORM1",
+          	"sortOrder": 6,
+          	"classModel":"{\"clazz\":\"org.pidragon.model.Schedule\",\"field\":\"timeOn\",\"type\":\"Integer\"}",
+          	"values": [
+          		{
+          			"value": "",
+          			"label": "Wave mode time on:",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": false,
+          			"validation": "{\"regex\":\"^[0-9]*$\",\"errorMsg\":\"Must be a integer\"}"
+          		}
+          	]
+        },
+         {
+        	"name": "SCHEDULE_FORM_WAVE_OFF",
+        	"fieldType": "INT",
+          	"htmlType": "text",
+          	"tabIndex": 8,
+          	"group": "FORM1",
+          	"sortOrder": 7,
+          	"classModel":"{\"clazz\":\"org.pidragon.model.Schedule\",\"field\":\"timeOff\",\"type\":\"Integer\"}",
+          	"values": [
+          		{
+          			"value": "",
+          			"label": "Wave mode time off:",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": false,
+          			"validation": "{\"regex\":\"^[0-9]*$\",\"errorMsg\":\"Must be a integer\"}"
+          		}
+          	]
+        }
+		]
+	},
+	{"name":"SCHEDULE_PAGE",
+      "labels": [
+		{
+        	"name": "SCHEDULE_TABLE_NAME",
+        	"tabIndex":1,
+        	"group":"TABLE1",
+        	"optionalParams":"{\"field\":\"name\"}",
+        	"sortOrder":0,
+          	"values": [
+          		{
+          			"value": "Name",
+          			"lang": "en",
+          			"rendered": true
+          		}
+          	]
+        },
+        {
+        	"name": "SCHEDULE_TABLE_START_TIME",
+			"tabIndex":1,
+			"group":"TABLE1",
+			"optionalParams":"{\"fieldJoin\":[{\"field\":\"startHour\"},{\"field\":\"startMinute\"}],\"joinSeparator\":\":\"}",
+			"sortOrder":1,
+          	"values": [
+          		{
+          			"value": "Start Time",
+          			"lang": "en",
+          			"rendered": true
+          		}
+          	]
+        },
+        {
+        	"name": "SCHEDULE_TABLE_END_TIME",
+			"tabIndex":2,
+			"group":"TABLE1",
+			"optionalParams":"{\"fieldJoin\":[{\"field\":\"endHour\"},{\"field\":\"endMinute\"}],\"joinSeparator\":\":\"}",
+			"sortOrder":2,
+          	"values": [
+          		{
+          			"value": "End Time",
+          			"lang": "en",
+          			"rendered": true
+          		}
+          	]
+        },
+        {
+        	"name": "SCHEDULE_TABLE_OPTIONS",
+        	"tabIndex":3,
+        	"group":"TABLE1",
+        	"optionalParams":"{\"fieldIcon\":[{\"code\":\"MODIFY\",\"classField\":\"fas fa-edit fa-1\",\"permission\":{\"ARDR\":\"W\"},\"label\":{\"en\":\"Modify\"}},{\"code\":\"DELETE\",\"classField\":\"fas fa-trash-alt fa-1\",\"permission\":{\"ARDR\":\"W\"},\"label\":{\"en\":\"Delete\"}}]}",
+        	"sortOrder":3,
+          	"values": [
+          		{
+          			"value": "Options",
+          			"lang": "en",
+          			"rendered": true
+          		}
+          	]
+        }
+       ],
+      "texts": [
+      	{
+            "name": "SCHEDULE_PAGE_HEADER",
+            "values": [
+              	{
+              		"value": "Schedule",
+              		"lang": "en",
+              		"rendered": true
+              	}
+              ]
+        }
+        
+      ]
+	}
+]
+

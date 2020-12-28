@@ -1,0 +1,106 @@
+[
+	{"name":"PLUG_FORM",
+		"formFields": [
+		{
+        	"name": "PLUG_FORM_NAME",
+        	"fieldType": "TXT",
+          	"htmlType": "text",
+          	"tabIndex": "1",
+          	"group": "FORM1",
+          	"classModel":"{\"clazz\":\"org.pidragon.model.Plug\",\"field\":\"name\",\"type\":\"String\"}",
+          	"values": [
+          		{
+          			"value": "",
+          			"label": "Name:",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": true,
+          			"order": 0,
+          			"validation": "{\"regex\":\"^[a-zA-Z0-9_#!@. ]*$\",\"errorMsg\":\"Validation Error\"}"
+          		}
+          	]
+        },
+        {
+        	"name": "PLUG_FORM_STATUS",
+        	"fieldType": "BLN",
+          	"htmlType": "radioH",
+          	"tabIndex": "2",
+          	"group": "FORM1",
+          	"classModel":"{\"clazz\":\"org.pidragon.model.Plug\",\"field\":\"active\",\"type\":\"Boolean\"}",
+          	"values": [
+          		{
+          			"value": "{\"referPref\":{\"prefName\":\"GLOBAL_PAGE\",\"prefItem\":\"GLOBAL_PAGE_ACTIVE_OPTIONS\"}}",
+          			"label": "Status:",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": true,
+          			"order": 1,
+          			"validation": "{\"regex\":\"^[a-zA-Z0-9_#!@.]*$\",\"errorMsg\":\"Validation Error\"}"
+          		}
+          	]
+        }
+		]
+	},
+	{"name":"PLUG_PAGE",
+      "labels": [
+		{
+        	"name": "PLUG_TABLE_NAME",
+        	"tabIndex":1,
+        	"group":"TABLE1",
+        	"optionalParams":"{\"field\":\"name\"}",
+        	"sortOrder":0,
+          	"values": [
+          		{
+          			"value": "Name",
+          			"lang": "en",
+          			"rendered": true
+          		}
+          	]
+        },
+        {
+        	"name": "PLUG_TABLE_STATUS",
+			"tabIndex":2,
+			"group":"TABLE1",
+			"optionalParams":"{\"fieldBool\":\"active\",\"labelTrue\":{\"defaultText\":\"Active\",\"en\":\"Active\",\"es\":\"Activo\"},\"labelFalse\":{\"defaultText\":\"Disabled\",\"en\":\"Disabled\",\"es\":\"Inhabilitar\"}}",
+			"sortOrder":1,
+          	"values": [
+          		{
+          			"value": "Status",
+          			"lang": "en",
+          			"rendered": true,
+          			"order": 0
+          		}
+          	]
+        },
+        {
+        	"name": "PLUG_TABLE_OPTIONS",
+        	"tabIndex":1,
+        	"group":"TABLE1",
+        	"optionalParams":"{\"fieldIcon\":[{\"code\":\"MODIFY\",\"classField\":\"fas fa-edit fa-1\",\"permission\":{\"ARDR\":\"W\"},\"label\":{\"en\":\"Modify\"}},{\"code\":\"SCHEDULE\",\"classField\":\"fas fa-calendar-alt fa-1\",\"permission\":{\"ARDR\":\"W\"},\"label\":{\"en\":\"Schedule\"}}]}",
+        	"sortOrder":2,
+          	"values": [
+          		{
+          			"value": "Options",
+          			"lang": "en",
+          			"rendered": true,
+          			"order": 0
+          		}
+          	]
+        }
+       ],
+      "texts": [
+      	{
+            "name": "PLUG_PAGE_HEADER",
+            "values": [
+              	{
+              		"value": "Plugs",
+              		"lang": "en",
+              		"rendered": true
+              	}
+              ]
+        }
+        
+      ]
+	}
+]
+

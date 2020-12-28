@@ -1,0 +1,105 @@
+[
+	{"name":"LOGIN_FORM",
+      "formFields": [
+		{
+        	"name": "LOGIN_FORM_USERNAME",
+        	"fieldType": "TXT",
+          	"htmlType": "text",
+          	"tabIndex": "1",
+          	"group": "MAIN",
+          	"values": [
+          		{
+          			"value": "",
+          			"label": "User name:",
+          			"lang": "en",
+          			"rendered": true,
+         			"required": true,
+          			"order": 0,
+          			"validation": "{\"regex\":\"^[a-zA-Z0-9_#!@.]*$\",\"errorMsg\":\"Validation Error\"}"
+          		}
+          	]
+        },
+        {
+        	"name": "LOGIN_FORM_PASSWORD",
+          	"fieldType": "TXT",
+          	"htmlType": "password",
+          	"group": "MAIN",
+          	"tabIndex": "2",
+        	"values": [
+        		{
+        			"value": "",
+          			"label": "Password:",
+          			"lang": "en",
+          			"rendered": true,
+          			"required": true,
+          			"order": 1,
+          			"validation": "{\"regex\":\"^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[\\\\d]){1,})(?=(.*[^a-zA-Z0-9]){1,}).{7,30}$\",\"errorMsg\":\"Validation Error\"}"
+        		}
+        	]
+        }
+      ],
+      "labels": [
+		{
+        	"name": "LOGIN_FORM_SUBMIT_BUTTON",
+        	"className": "form-control btn btn-login",
+          	"tabIndex": "4",
+          	"values": [
+          		{
+          			"value": "Log in",
+          			"lang": "en",
+          			"rendered": true,
+          			"order": 0
+          		}
+          	]
+        }
+       ],
+      "texts": [
+      	{
+            "name": "LOGIN_FORM_HEADER",
+            "values": [
+              	{
+              		"value": "Great to see you!",
+              		"lang": "en",
+              		"rendered": true
+              	}
+              ]
+        },
+        {   "name": "LOGIN_FORM_USERMISSING",
+        	"values": [
+        		{
+              		"value": "The user name you provided is not registered",
+              		"lang": "en",
+              		"rendered": true
+              	}
+            ]
+        },
+        {   "name": "LOGIN_FORM_FORGOT_PASSWORD",
+        	"values": [
+              {
+              		"value": "Forgot Password?",
+              	"lang": "en",
+              	"rendered": true
+              }
+           ]
+       	},
+        {	"name": "LOGIN_FORM_REMEMBER_ME",
+        	"values": [
+            	{
+            		"value": "Remember Me",
+              		"lang": "en",
+              		"rendered": true
+              	}
+            ]
+        },
+        {	"name": "LOGIN_FORM_CHANGE_PASSWORD",
+        	"values": [
+        		{
+              		"value": "Change Password?",
+              		"lang": "en",
+              		"rendered": true
+              	}
+            ]
+        }
+      ]
+	}
+]

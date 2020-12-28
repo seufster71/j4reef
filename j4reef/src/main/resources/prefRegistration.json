@@ -1,0 +1,273 @@
+[
+	{"name":"REGISTRATION_FORM",
+		"formFields": [
+			{
+	        	"name": "REGISTRATION_FORM_FIRSTNAME",
+	        	"fieldType": "TXT",
+	          	"htmlType": "text",
+	          	"tabIndex": "1",
+	          	"group": "MAIN",
+	          	"values": [
+	          		{
+	          			"value": "",
+	          			"label": "First name:",
+	          			"lang": "en",
+	          			"rendered": true,
+	         			"required": true,
+	          			"order": 0,
+	          			"validation": "{\"regex\":\"^[a-zA-Z0-9]*$\",\"errorMsg\":\"Validation Error\"}"
+	          		}
+	          	]
+        	},
+			{
+	        	"name": "REGISTRATION_FORM_MIDDLENAME",
+	        	"fieldType": "TXT",
+	          	"htmlType": "text",
+	          	"tabIndex": "1",
+	          	"group": "MAIN",
+	          	"values": [
+	          		{
+	          			"value": "",
+	          			"label": "Middle name:",
+	          			"lang": "en",
+	          			"rendered": false,
+	         			"required": false,
+	          			"order": 1,
+	          			"validation": "{\"regex\":\"^[a-zA-Z0-9]*$\",\"errorMsg\":\"Validation Error\"}"
+	          		}
+	          	]
+        	},
+			{
+	        	"name": "REGISTRATION_FORM_LASTNAME",
+	        	"fieldType": "TXT",
+	          	"htmlType": "text",
+	          	"tabIndex": "1",
+	          	"group": "MAIN",
+	          	"values": [
+	          		{
+	          			"value": "",
+	          			"label": "Last name:",
+	          			"lang": "en",
+	          			"rendered": true,
+	         			"required": true,
+	          			"order": 2,
+	          			"validation": "{\"regex\":\"^[a-zA-Z0-9]*$\",\"errorMsg\":\"Validation Error\"}"
+	          		}
+	          	]
+        	},
+        	{
+	        	"name": "REGISTRATION_FORM_ZIPCODE",
+	        	"fieldType": "TXT",
+	          	"htmlType": "text",
+	          	"tabIndex": "1",
+	          	"group": "MAIN",
+	          	"values": [
+	          		{
+	          			"value": "",
+	          			"label": "Zip code:",
+	          			"lang": "en",
+	          			"rendered": true,
+	         			"required": true,
+	          			"order": 3,
+	          			"validation": "{\"regex\":\"^\\\\d{5}(?:[-\\\\s]\\\\d{4})?$\",\"errorMsg\":\"Validation Error\"}"
+	          		}
+	          	]
+        	},
+        	{
+	        	"name": "REGISTRATION_FORM_USERNAME",
+	        	"fieldType": "TXT",
+	          	"htmlType": "text",
+	          	"tabIndex": "1",
+	          	"group": "MAIN",
+	          	"values": [
+	          		{
+	          			"value": "-Name used on posts-",
+	          			"label": "User name:",
+	          			"lang": "en",
+	          			"rendered": true,
+	         			"required": true,
+	          			"order": 4,
+	          			"validation": "{\"regex\":\"^[a-zA-Z0-9_#!@.]*$\",\"errorMsg\":\"Validation Error\"}"
+	          		}
+	          	]
+        	},
+        	{
+	        	"name": "REGISTRATION_FORM_EMAIL",
+	        	"fieldType": "TXT",
+	          	"htmlType": "email",
+	          	"tabIndex": "1",
+	          	"group": "MAIN",
+	          	"values": [
+	          		{
+	          			"value": "-Valid email address-",
+	          			"label": "Email:",
+	          			"lang": "en",
+	          			"rendered": true,
+	         			"required": true,
+	          			"order": 5,
+	          			"validation": "{\"regex\":\"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$\",\"errorMsg\":\"Validation Error\"}"
+	          		}
+	          	]
+        	},
+        	{
+	        	"name": "REGISTRATION_FORM_PASSWORD",
+	        	"fieldType": "TXT",
+	          	"htmlType": "password",
+	          	"tabIndex": "1",
+	          	"group": "MAIN",
+	          	"values": [
+	          		{
+	          			"value": "",
+	          			"label": "Password:",
+	          			"lang": "en",
+	          			"rendered": true,
+	         			"required": true,
+	          			"order": 6,
+	          			"validation": "{\"regex\":\"^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[\\\\d]){1,})(?=(.*[!#@&*$%]){1,}).{7,30}$\",\"errorMsg\":\"Validation Error\",\"onFail\":[{\"regex\":\"(?=(.*[a-z]){1,})\",\"link\":\"REGISTRATION_FORM_ALPHA_CHECK\"},{\"regex\":\"(?=(.*[A-Z]){1,})\",\"link\":\"REGISTRATION_FORM_CAPITAL_CHECK\"},{\"regex\":\"(?=(.*[\\\\d]){1,})\",\"link\":\"REGISTRATION_FORM_NUMBER_CHECK\"},{\"regex\":\"(?=(.*[!#@&*$%]){1,})\",\"link\":\"REGISTRATION_FORM_SPECIAL_CHECK\"},{\"regex\":\".{7,30}\",\"link\":\"REGISTRATION_FORM_COUNT_CHECK\"}]}"
+	          		}
+	          	]
+        	},
+        	{
+	        	"name": "REGISTRATION_FORM_VERIFYPASSWORD",
+	        	"fieldType": "TXT",
+	          	"htmlType": "password",
+	          	"tabIndex": "1",
+	          	"group": "MAIN",
+	          	"optionalParams": "{\"matchItem\":\"REGISTRATION_FORM_PASSWORD\"}",
+	          	"values": [
+	          		{
+	          			"value": "",
+	          			"label": "Verify Password:",
+	          			"lang": "en",
+	          			"rendered": true,
+	         			"required": true,
+	          			"order": 7,
+	          			"validation": "{\"operator\":\"equals\",\"matchField\":\"REGISTRATION_FORM_PASSWORD\",\"errorMsg\":\"Password does not match\"}"
+	          		}
+	          	]
+        	}
+		],
+      "labels": [
+		{
+        	"name": "REGISTRATION_FORM_SUBMIT_BUTTON",
+        	"className": "form-control btn btn-register",
+          	"tabIndex": "1",
+          	"values": [
+          		{
+          			"value": "Register",
+          			"lang": "en",
+          			"rendered": true,
+          			"order": 0
+          		}
+          	]
+        }
+       ],
+      "options": [
+      	{
+			"name": "REGISTRATION_SHOW_FORM",
+			"valueType": "Boolean",
+            "defaultValue": "true",
+            "useDefault": false,
+			"values": [
+	          	{
+	          		"value": "true",
+	          		"lang": "en",
+	          		"rendered": true
+	          	}
+			]
+		}
+		],
+		"texts": [
+			{
+	            "name": "REGISTRATION_FORM_HEADER",
+	            "values": [
+	              	{
+	              		"value": "Registration",
+	              		"lang": "en",
+	              		"rendered": true
+	              	}
+	              ]
+	        },
+			{
+	            "name": "REGISTRATION_FORM_SUCCESSFUL",
+	            "values": [
+	              	{
+	              		"value": "User Registration Successful",
+	              		"lang": "en",
+	              		"rendered": true
+	              	}
+	              ]
+	        },
+			{
+	            "name": "REGISTRATION_FORM_NUMBER_CHECK",
+	            "values": [
+	              	{
+	              		"value": "At least one number",
+	              		"lang": "en",
+	              		"rendered": true
+	              	}
+	              ]
+	        },
+			{
+	            "name": "REGISTRATION_FORM_CAPITAL_CHECK",
+	            "values": [
+	              	{
+	              		"value": "At least one capital",
+	              		"lang": "en",
+	              		"rendered": true
+	              	}
+	              ]
+	        },
+	        {
+	            "name": "REGISTRATION_FORM_FAILED",
+	            "values": [
+	              	{
+	              		"value": "User Registration Failed",
+	              		"lang": "en",
+	              		"rendered": true
+	              	}
+	              ]
+	        },
+	        {
+	            "name": "REGISTRATION_FORM_COUNT_CHECK",
+	            "values": [
+	              	{
+	              		"value": "At least 8 characters",
+	              		"lang": "en",
+	              		"rendered": true
+	              	}
+	              ]
+	        },
+	        {
+	            "name": "REGISTRATION_FORM_ALPHA_CHECK",
+	            "values": [
+	              	{
+	              		"value": "At least one alpha letter",
+	              		"lang": "en",
+	              		"rendered": true
+	              	}
+	              ]
+	        },
+	        {
+	            "name": "REGISTRATION_FORM_SPECIAL_CHECK",
+	            "values": [
+	              	{
+	              		"value": "At least one special characters !#@&*$%",
+	              		"lang": "en",
+	              		"rendered": true
+	              	}
+	              ]
+	        },
+	        {
+	            "name": "REGISTRATION_FORM_MATCH_CHECK",
+	            "values": [
+	              	{
+	              		"value": "Match password",
+	              		"lang": "en",
+	              		"rendered": true
+	              	}
+	              ]
+	        }
+		]
+	}
+]

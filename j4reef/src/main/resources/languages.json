@@ -1,0 +1,41 @@
+	
+[
+    {
+      "code": "en",
+      "title": {
+        "defaultText": "English",
+        "langTexts": [
+          {
+            "lang": "es",
+            "text": "Inglés"
+          },
+          {
+            "lang": "en",
+            "text": "English"
+          }
+        ]
+      },
+      "defaultLang": true,
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "title": {
+        "defaultText": "Spanish",
+        "langTexts": [
+          {
+            "lang": "es",
+            "text": "Español"
+          },
+          {
+            "lang": "en",
+            "text": "Spanish"
+          }
+        ]
+      },
+      "defaultLang": false,
+      "dir": "ltr"
+    }
+]
+
+	

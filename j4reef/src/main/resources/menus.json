@@ -1,0 +1,56 @@
+
+[
+    {
+      	"code": "MEMBER_MENU_TOP",
+      	"menuItems": [
+      		{
+      			"menuId":1,
+      			"code":"HOME", 
+      			"permissionCode":"MH",
+      			"values": [
+      				{
+      					"rendered":true,
+      					"href":"member",
+      					"value":"Home",
+      					"image":"fas fa-home fa-1",
+      					"lang":"en"
+      				}
+      			]
+      		},
+      		{
+      			"menuId":2,
+      			"code":"CONTROLLER",
+      			"permissionCode":"MH",
+      			"values": [
+      				{
+      					"rendered":true,
+      					"href":"member-controller",
+      					"value":"Controllers",
+      					"image":"fas fa-gamepad fa-1"
+      				}
+      			]
+      		},
+      		{
+      			"menuId":3,
+      			"code":"LOG_OUT",
+      			"permissionCode":"MLO",
+      			"values":[
+      				{
+      					"rendered":true,
+      					"href":"member-logout",
+      					"value":"Logout",
+      					"image":"fas fa-sign-out-alt fa-1"
+      				}
+      			]
+      		}
+      	]
+    },
+    {
+    	"code": "PUBLIC_MENU_TOP",
+      	"menuItems": []
+    },
+    {
+    	"code": "ADMIN_MENU_TOP",
+      	"menuItems": []
+    }
+]
