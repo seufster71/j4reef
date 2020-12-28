@@ -1,0 +1,6 @@
+[submodule "j4reef/src/main/js/coreView"]
+	path = j4reef/src/main/js/coreView
+	url = https://github.com/seufster71/toasthub-reactweb-core.git
+[submodule "j4reef/src/main/js/core"]
+	path = j4reef/src/main/js/core
+	url = https://github.com/seufster71/toasthub-react-core.git
