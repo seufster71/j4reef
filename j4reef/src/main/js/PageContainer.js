@@ -9,7 +9,6 @@ import LoginContainer from "./core/usermgnt/login-container";
 import PublicContainer from "./publicArea/public-container";
 import MemberContainer from "./member/member-container";
 import AccessDeniedContainer from "./core/usermgnt/accessdenied-container";
-import PiLightsContainer from "./piSwitch/piLights/PiLightsContainer";
 import fuLogger from './core/common/fu-logger';
 
 

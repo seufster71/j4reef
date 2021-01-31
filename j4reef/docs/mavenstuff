@@ -1,0 +1,11 @@
+
+maven package
+
+copy to pi 
+scp pi-lights-1.0-SNAPSHOT.jar pi@10.0.1.30:/home/pi
+
+connect to pi
+ssh pi@10.0.1.30
+
+start jar on pi
+sudo java -jar pi-lights-1.0-SNAPSHOT.jar

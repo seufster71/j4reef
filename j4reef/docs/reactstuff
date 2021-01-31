@@ -1,0 +1,38 @@
+
+
+helpful docs
+https://differential.com/insights/sharing-code-between-android-and-ios-in-react-native/
+
+https://code.facebook.com/posts/1189117404435352/react-native-for-android-how-we-built-the-first-cross-platform-react-native-app/
+
+https://medium.com/@sikavica/react-native-project-setup-for-large-projects-9a3acbd92903
+
+https://medium.com/kuralabs-engineering/reactive-core-architecture-for-react-native-and-react-applications-d590daf4ef8a
+
+https://hackernoon.com/code-reuse-using-higher-order-hoc-and-stateless-functional-components-in-react-and-react-native-6eeb503c665
+
+https://git-scm.com/book/en/v2/Git-Tools-Submodules
+
+
+react js web setup for empty install
+create maven spring starter project and cd into it
+create empty project with reactjs and bootstrap
+npm init           this create package.json  do not do this if you already have a package.json file
+npm install --save-dev babel-core babel-loader babel-plugin-transform-class-properties babel-preset-es2015 babel-preset-react css-loader style-loader url-loader file-loader webpack webpack-dev-server
+npm install --save react react-dom bootstrap react-bootstrap
+
+
+to build with webpack
+./node_modules/.bin/webpack -d
+
+install from existing package.json file
+npm install
+
+to build with webpack
+./node_modules/.bin/webpack -d
+
+to build bundle.js
+npm run build	
+
+to build to the dev webserver
+npm start 	
