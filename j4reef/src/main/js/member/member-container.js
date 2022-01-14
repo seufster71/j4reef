@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { Switch, Route, withRouter, Redirect} from "react-router";
+import {Routes, Route, Navigate} from "react-router-dom";
 import * as memberActions from './member-actions';
 import LoginContainer from '../core/usermgnt/login-container';
 import StatusView from '../coreView/status/status-view';
@@ -39,7 +39,7 @@ class MemberContainer extends Component {
   }
 
   render() {
-    fuLogger.log({level:'TRACE',loc:'MemberContainer::render',msg:"path "+ this.props.history.location.pathname});
+    fuLogger.log({level:'TRACE',loc:'MemberContainer::render',msg:"path "+ window.location.pathname});
 
     let myMenus = [];
     if (this.props.appMenus != null && this.props.appMenus[this.props.appPrefs.memberMenu] != null) {
@@ -57,20 +57,18 @@ class MemberContainer extends Component {
       return (
         <MemberView>
           <NavigationView appPrefs={this.props.appPrefs} permissions={myPermissions}
-          menus={myMenus} changeTab={this.changeTab} activeTab={this.props.history.location.pathname} user={this.props.session.user} profileMenu={profileMenu}/>
+          menus={myMenus} changeTab={this.changeTab} activeTab={window.location.pathname} user={this.props.session.user} profileMenu={profileMenu}/>
           <StatusView/>
-          <Switch>
-            <Route exact path="/" component={DashboardContainer} />
-            <Route exact path="/member" component={DashboardContainer} />
-            <PrivateRoute path="/member-controller" component={ControllerContainer} permissions={myPermissions} code="MCTR" minRights="W" pathto="/access-denied"/>
-            <PrivateRoute path="/member-plug" component={PlugContainer} permissions={myPermissions} code="MPL" minRights="W" pathto="/access-denied"/>
-            <PrivateRoute path="/member-schedule" component={ScheduleContainer} permissions={myPermissions} code="MPL" minRights="W" pathto="/access-denied"/>
-            <PrivateRoute path="/member-profile" component={ProfileContainer} permissions={myPermissions} code="MP" minRights="W" pathto="/access-denied"/>
-            <PrivateRoute path="/member-logout" component={LogoutContainer} permissions={myPermissions} code="MLO" pathto="/access-denied"/>
-            <Route path="/admin" render={() => (
-              <Redirect to="/admin"/>
+          <Routes>
+            <Route path="member-controller" element={<PrivateRoute permissions={myPermissions} code="MCTR" minRights="W" pathto="/access-denied" component="<ControllerContainer />" />} />
+            <Route path="/member-plug/*" element={<PrivateRoute permissions={myPermissions} code="MPL" minRights="W" pathto="/access-denied" component="<PlugContainer />" />} />
+            <Route path="/member-schedule/*" element={<PrivateRoute permissions={myPermissions} code="MPL" minRights="W" pathto="/access-denied" component="<ScheduleContainer />" />} />
+            <Route path="/member-profile/*" element={<PrivateRoute permissions={myPermissions} code="MP" minRights="W" pathto="/access-denied" component="<ProfileContainer />" />} />
+            <Route path="/member-logout/*" element={<PrivateRoute permissions={myPermissions} code="MLO" pathto="/access-denied" component="<LogoutContainer />" />} />
+            <Route path="admin/*" render={() => ( 
+              <Navigate replace to="/admin"/>
             )}/>
-          </Switch>
+          </Routes>
         </MemberView>
       );
     } else {
@@ -100,4 +98,4 @@ function mapDispatchToProps(dispatch) {
   return { actions:bindActionCreators(memberActions,dispatch) };
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(MemberContainer));
+export default connect(mapStateToProps,mapDispatchToProps)(MemberContainer);

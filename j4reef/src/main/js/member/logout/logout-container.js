@@ -5,7 +5,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { withRouter } from "react-router";
 import {bindActionCreators} from 'redux';
 import * as userManagementActions from '../../core/usermgnt/usermgnt-actions';
 import fuLogger from '../../core/common/fu-logger';
@@ -45,4 +44,4 @@ function mapDispatchToProps(dispatch) {
   return { actions:bindActionCreators(userManagementActions,dispatch) };
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(LogoutContainer));
+export default connect(mapStateToProps,mapDispatchToProps)(LogoutContainer);

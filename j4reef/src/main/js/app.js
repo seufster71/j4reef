@@ -13,7 +13,7 @@ import utils from './core/common/utils';
 if (process.env.NODE_ENV !== "production") {
 	  console.log("Looks like we are in development mode!");
 }
-
+   
 const store = configureStore();
 store.dispatch(initPublic());
 store.dispatch(sessionCheck());

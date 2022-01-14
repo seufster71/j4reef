@@ -429,8 +429,8 @@ public class UserManagerSvcImpl implements UserManagerSvc {
 		permissions.put("MPL",new RolePermission(r1,p2,"W"));
 		permissions.put("MLO",new RolePermission(r1,p3,"W"));
 		permissions.put("MCTR",new RolePermission(r1,p4,"W"));
-		
-		User user = new User("admin","$2a$04$lfgRCoRLlMDY0MrUN0T4VOUHCIwH1DyePvnyQzq4X2L3CiFDQJEZG","admin","admin","admin","33333","en");
+		// $2a$04$lfgRCoRLlMDY0MrUN0T4VOUHCIwH1DyePvnyQzq4X2L3CiFDQJEZG
+		User user = new User("admin","$2a$12$71Mm9zqX4GIeYhcCZlpqw.r62PBRD8SFjfpkvuoVlqd60G/wdSvJu","admin","admin","admin","33333","en");
 		user.setSalt("LrS8Hv/zqFw=");
 		user.setPermissions(permissions);
 		try {
