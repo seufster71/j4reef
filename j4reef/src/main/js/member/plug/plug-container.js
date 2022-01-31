@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 'use-strict';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { useEffect } from 'react';
+import { useLocation } from "react-router-dom";
+import {useSelector, useDispatch} from 'react-redux';
 import * as plugActions from './plug-actions';
 import PlugView from './../../memberView/plug/plug-view.js'
 import PlugModifyView from './../../memberView/plug/plug-modify-view.js'
@@ -25,20 +24,24 @@ import fuLogger from '../../core/common/fu-logger';
 import utils from '../../core/common/utils';
 
 // test
-class PlugContainer extends Component {
-	constructor(props) {
-		super(props);
-	}
+function PlugContainer() {
+	const plugState = useSelector((state) => state.plugState);
+	const appPrefs = useSelector((state) => state.appPrefs);
+	const session = useSelector((state) => state.session);
+	const dispatch = useDispatch();
+	const location = useLocation();
 
-	componentDidMount() {
-		if (this.props.history.location.state != null && this.props.history.location.state.parent != null) {
-			this.props.actions.init({parent:this.props.history.location.state.parent,parentType:this.props.history.location.state.parentType});
-		} else {
-			this.props.actions.init({});
-		}
-	}
 	
-	onListLimitChange = (fieldName, event) => {
+	useEffect(() => {
+		if (location.state != null && location.state.parent != null) {
+			dispatch(plugActions.init({parent:location.state.parent,parentType:location.state.parentType}));
+		} else {
+			dispatch(plugActions.init({}));
+		}
+	}, []);
+	
+	
+	const onListLimitChange = (fieldName, event) => {
 		let value = 20;
 		if (this.props.codeType === 'NATIVE') {
 			value = event.nativeEvent.text;
@@ -47,16 +50,16 @@ class PlugContainer extends Component {
 		}
 
 		let listLimit = parseInt(value);
-		this.props.actions.listLimit({state:this.props.plugState,listLimit});
+		dispatch(plugActions.listLimit({state:plugState,listLimit}));
 	}
 
-	onPaginationClick = (value) => {
+	const onPaginationClick = (value) => {
 		fuLogger.log({level:'TRACE',loc:'PlugContainer::onPaginationClick',msg:"fieldName "+ value});
-		let listStart = this.props.plugState.listStart;
+		let listStart = plugState.listStart;
 		let paginationSegment = 1;
 		let oldValue = 1;
-		if (this.props.plugState.paginationSegment != ""){
-			oldValue = this.props.plugState.paginationSegment;
+		if (plugState.paginationSegment != ""){
+			oldValue = plugState.paginationSegment;
 		}
 		if (value === "prev") {
 			paginationSegment = oldValue - 1;
@@ -65,49 +68,49 @@ class PlugContainer extends Component {
 		} else {
 			paginationSegment = value;
 		}
-		listStart = ((paginationSegment - 1) * this.props.plugState.listLimit);
+		listStart = ((paginationSegment - 1) * plugState.listLimit);
 		
-		this.props.actions.list({state:this.props.plugState,listStart,paginationSegment});
+		dispatch(plugActions.list({state:plugState,listStart,paginationSegment}));
 	}
 
-	onSearchChange = (fieldName, event) => {
+	const onSearchChange = (fieldName, event) => {
 		if (event.type === 'keypress') {
 			if (event.key === 'Enter') {
 				this.onSearchClick(fieldName,event);
 			}
 		} else {
 			if (this.props.codeType === 'NATIVE') {
-				this.props.actions.searchChange({[fieldName]:event.nativeEvent.text});
+				dispatch(plugActions.searchChange({[fieldName]:event.nativeEvent.text}));
 			} else {
-				this.props.actions.searchChange({[fieldName]:event.target.value});
+				dispatch(plugActions.searchChange({[fieldName]:event.target.value}));
 			}
 		}
 	}
 
-	onSearchClick = (fieldName, event) => {
+	const onSearchClick = (fieldName, event) => {
 		let searchCriteria = [];
 		if (fieldName === 'PLUG-SEARCHBY') {
 			if (event != null) {
 				for (let o = 0; o < event.length; o++) {
 					let option = {};
-					option.searchValue = this.props.plugState.searchValue;
+					option.searchValue = plugState.searchValue;
 					option.searchColumn = event[o].value;
 					searchCriteria.push(option);
 				}
 			}
 		} else {
-			for (let i = 0; i < this.props.plugState.searchCriteria.length; i++) {
+			for (let i = 0; i < plugState.searchCriteria.length; i++) {
 				let option = {};
-				option.searchValue = this.props.plugState.searchValue;
-				option.searchColumn = this.props.plugState.searchCriteria[i].searchColumn;
+				option.searchValue = plugState.searchValue;
+				option.searchColumn = plugState.searchCriteria[i].searchColumn;
 				searchCriteria.push(option);
 			}
 		}
 
-		this.props.actions.search({state:this.props.plugState,searchCriteria});
+		dispatch(plugActions.search({state:this.props.plugState,searchCriteria}));
 	}
 
-	onOrderBy = (selectedOption, event) => {
+	const onOrderBy = (selectedOption, event) => {
 		fuLogger.log({level:'TRACE',loc:'PlugContainer::onOrderBy',msg:"id " + selectedOption});
 		let orderCriteria = [];
 		if (event != null) {
@@ -128,45 +131,45 @@ class PlugContainer extends Component {
 			let option = {orderColumn:"PLUG_TABLE_NAME",orderDir:"ASC"};
 			orderCriteria.push(option);
 		}
-		this.props.actions.orderBy({state:this.props.plugState,orderCriteria});
+		dispatch(plugActions.orderBy({state:plugState,orderCriteria}));
 	}
 	
-	onSave = () => {
+	const onSave = () => {
 		fuLogger.log({level:'TRACE',loc:'PlugContainer::onSave',msg:"test"});
-		let errors = utils.validateFormFields(this.props.plugState.prefForms.PLUG_FORM,this.props.plugState.inputFields);
+		let errors = utils.validateFormFields(plugState.prefForms.PLUG_FORM,plugState.inputFields);
 		
 		if (errors.isValid){
-			this.props.actions.saveItem({state:this.props.plugState});
+			dispatch(plugActions.saveItem({state:plugState}));
 		} else {
-			this.props.actions.setErrors({errors:errors.errorMap});
+			dispatch(plugActions.setErrors({errors:errors.errorMap}));
 		}
 	}
 	
-	onModify = (item) => {
+	const onModify = (item) => {
 		let id = null;
 		if (item != null && item.id != null) {
 			id = item.id;
 		}
 		fuLogger.log({level:'TRACE',loc:'PlugContainer::onModify',msg:"test"+id});
-		this.props.actions.modifyItem({id,appPrefs:this.props.appPrefs});
+		dispatch(plugActions.modifyItem({id,appPrefs:appPrefs}));
 	}
 	
-	onDelete = (item) => {
+	const onDelete = (item) => {
 		fuLogger.log({level:'TRACE',loc:'PlugContainer::onDelete',msg:"test"});
 		if (item != null && item.id != "") {
-			this.props.actions.deleteItem({state:this.props.plugState,id:item.id});
+			dispatch(plugActions.deleteItem({state:plugState,id:item.id}));
 		}
 	}
 	
-	openDeleteModal = (item) => {
-		this.props.actions.openDeleteModal({item});
+	const openDeleteModal = (item) => {
+		dispatch(plugActions.openDeleteModal({item}));
 	}
 	
-	onOption = (code, item) => {
+	const onOption = (code, item) => {
 		fuLogger.log({level:'TRACE',loc:'PlugContainer::onOption',msg:" code "+code});
 		switch(code) {
 			case 'MODIFY': {
-				this.onModify(item);
+				onModify(item);
 				break;
 			}
 			case 'SCHEDULE': {
@@ -176,67 +179,51 @@ class PlugContainer extends Component {
 		}
 	}
 	
-	closeModal = () => {
-		this.props.actions.closeDeleteModal();
+	const closeModal = () => {
+		dispatch(plugActions.closeDeleteModal());
 	}
 	
-	onCancel = () => {
+	const onCancel = () => {
 		fuLogger.log({level:'TRACE',loc:'PlugContainer::onCancel',msg:"test"});
-		this.props.actions.list({state:this.props.plugState});
+		dispatch(plugActions.list({state:plugState}));
 	}
 	
-	inputChange = (type,field,value,event) => {
+	const inputChange = (type,field,value,event) => {
 		utils.inputChange({type,props:this.props,field,value,event});
 	}
 
-	goBack = () => {
+	const goBack = () => {
 		fuLogger.log({level:'TRACE',loc:'PlugContainer::goBack',msg:"test"});
 		this.props.history.goBack();
 	}
+ 
 
-	render() {
-		fuLogger.log({level:'TRACE',loc:'PlugContainer::render',msg:"Hi there"});
-		if (this.props.plugState.isModifyOpen) {
-			return (
-				<PlugModifyView
-				itemState={this.props.plugState}
-				appPrefs={this.props.appPrefs}
-				onSave={this.onSave}
-				onCancel={this.onCancel}
-				onReturn={this.onCancel}
-				inputChange={this.inputChange}
-				onBlur={this.onBlur}/>
-			);
-		} else if (this.props.plugState.items != null) {
-			return (
-				<PlugView
-				itemState={this.props.plugState}
-				appPrefs={this.props.appPrefs}
-				closeModal={this.closeModal}
-				onOption={this.onOption}
-				inputChange={this.inputChange}
-				goBack={this.goBack}
-				session={this.props.session}
-				/>
-			);
-		} else {
-			return (<div> Loading... </div>);
-		}
+	fuLogger.log({level:'TRACE',loc:'PlugContainer::render',msg:"Hi there"});
+	if (plugState.isModifyOpen) {
+		return (
+			<PlugModifyView
+			itemState={plugState}
+			appPrefs={appPrefs}
+			onSave={onSave}
+			onCancel={onCancel}
+			onReturn={onCancel}
+			inputChange={inputChange}/>
+		);
+	} else if (plugState.items != null) {
+		return (
+			<PlugView
+			itemState={plugState}
+			appPrefs={appPrefs}
+			closeModal={closeModal}
+			onOption={onOption}
+			inputChange={inputChange}
+			goBack={goBack}
+			session={session}
+			/>
+		);
+	} else {
+		return (<div> Loading... </div>);
 	}
 }
 
-PlugContainer.propTypes = {
-		appPrefs: PropTypes.object,
-		actions: PropTypes.object,
-		plugState: PropTypes.object.isRequired,
-		session: PropTypes.object
-	};
-
-function mapStateToProps(state, ownProps) {
-	return { appPrefs:state.appPrefs, plugState:state.plugState, session:state.session };
-}
-
-function mapDispatchToProps(dispatch) {
-	return { actions:bindActionCreators(plugActions,dispatch) };
-}
-export default connect(mapStateToProps,mapDispatchToProps)(PlugContainer);
+export default PlugContainer;

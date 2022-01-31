@@ -14,30 +14,26 @@
  * limitations under the License.
  */
 'use-strict';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import {useSelector, useDispatch} from 'react-redux';
 import * as controllerActions from './controller-actions';
 import ControllerView from './../../memberView/controller/controller-view.js'
 import ControllerModifyView from './../../memberView/controller/controller-modify-view.js'
 import fuLogger from '../../core/common/fu-logger';
 
-// test
-class ControllerContainer extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-	componentDidMount() {
-		if (this.props.history.location.state != null && this.props.history.location.state.parent != null) {
-			this.props.actions.init({parent:this.props.history.location.state.parent,parentType:this.props.history.location.state.parentType});
-		} else {
-			this.props.actions.init({});
-		}
-	}
+function ControllerContainer() {
+	const controllerState = useSelector((state) => state.controllerState);
+	const session = useSelector((state) => state.session);
+	const appPrefs = useSelector((state) => state.appPrefs);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	
-	onListLimitChange = (fieldName, event) => {
+	useEffect(() => {
+		dispatch(controllerActions.init({}));
+  	}, []);
+	
+	const onListLimitChange = (fieldName, event) => {
 		let value = 20;
 		if (this.props.codeType === 'NATIVE') {
 			value = event.nativeEvent.text;
@@ -46,16 +42,16 @@ class ControllerContainer extends Component {
 		}
 
 		let listLimit = parseInt(value);
-		this.props.actions.listLimit({state:this.props.controllerState,listLimit});
+		dispatch(controllerActions.listLimit({state:controllerState,listLimit}));
 	}
 
-	onPaginationClick = (value) => {
+	const onPaginationClick = (value) => {
 		fuLogger.log({level:'TRACE',loc:'ControllerContainer::onPaginationClick',msg:"fieldName "+ value});
-		let listStart = this.props.controllerState.listStart;
+		let listStart = controllerState.listStart;
 		let paginationSegment = 1;
 		let oldValue = 1;
-		if (this.props.controllerState.paginationSegment != ""){
-			oldValue = this.props.controllerState.paginationSegment;
+		if (controllerState.paginationSegment != ""){
+			oldValue = controllerState.paginationSegment;
 		}
 		if (value === "prev") {
 			paginationSegment = oldValue - 1;
@@ -64,32 +60,32 @@ class ControllerContainer extends Component {
 		} else {
 			paginationSegment = value;
 		}
-		listStart = ((paginationSegment - 1) * this.props.controllerState.listLimit);
+		listStart = ((paginationSegment - 1) * controllerState.listLimit);
 		
-		this.props.actions.list({state:this.props.controllerState,listStart,paginationSegment});
+		dispatch(controllerActions.list({state:controllerState,listStart,paginationSegment}));
 	}
 
-	onSearchChange = (fieldName, event) => {
+	const onSearchChange = (fieldName, event) => {
 		if (event.type === 'keypress') {
 			if (event.key === 'Enter') {
 				this.onSearchClick(fieldName,event);
 			}
 		} else {
 			if (this.props.codeType === 'NATIVE') {
-				this.props.actions.searchChange({[fieldName]:event.nativeEvent.text});
+				dispatch(controllerActions.searchChange({[fieldName]:event.nativeEvent.text}));
 			} else {
-				this.props.actions.searchChange({[fieldName]:event.target.value});
+				dispatch(controllerActions.searchChange({[fieldName]:event.target.value}));
 			}
 		}
 	}
 
-	onSearchClick = (fieldName, event) => {
+	const onSearchClick = (fieldName, event) => {
 		let searchCriteria = [];
 		if (fieldName === 'CONTROLLER-SEARCHBY') {
 			if (event != null) {
 				for (let o = 0; o < event.length; o++) {
 					let option = {};
-					option.searchValue = this.props.controllerState.searchValue;
+					option.searchValue = controllerState.searchValue;
 					option.searchColumn = event[o].value;
 					searchCriteria.push(option);
 				}
@@ -97,16 +93,16 @@ class ControllerContainer extends Component {
 		} else {
 			for (let i = 0; i < this.props.controllerState.searchCriteria.length; i++) {
 				let option = {};
-				option.searchValue = this.props.controllerState.searchValue;
-				option.searchColumn = this.props.controllerState.searchCriteria[i].searchColumn;
+				option.searchValue = controllerState.searchValue;
+				option.searchColumn = controllerState.searchCriteria[i].searchColumn;
 				searchCriteria.push(option);
 			}
 		}
 
-		this.props.actions.search({state:this.props.controllerState,searchCriteria});
+		dispatch(controllerActions.search({state:controllerState,searchCriteria}));
 	}
 
-	onOrderBy = (selectedOption, event) => {
+	const onOrderBy = (selectedOption, event) => {
 		fuLogger.log({level:'TRACE',loc:'ControllerContainer::onOrderBy',msg:"id " + selectedOption});
 		let orderCriteria = [];
 		if (event != null) {
@@ -127,41 +123,41 @@ class ControllerContainer extends Component {
 			let option = {orderColumn:"CONTROLLER_TABLE_NAME",orderDir:"ASC"};
 			orderCriteria.push(option);
 		}
-		this.props.actions.orderBy({state:this.props.controllerState,orderCriteria});
+		dispatch(controllerActions.orderBy({state:controllerState,orderCriteria}));
 	}
 	
-	onSave = () => {
+	const onSave = () => {
 		fuLogger.log({level:'TRACE',loc:'ControllerContainer::onSave',msg:"test"});
-		let errors = utils.validateFormFields(this.props.controllerState.prefForms.CONTROLLER_FORM,this.props.controllerState.inputFields);
+		let errors = utils.validateFormFields(controllerState.prefForms.CONTROLLER_FORM,controllerState.inputFields);
 		
 		if (errors.isValid){
-			this.props.actions.saveItem({state:this.props.controllerState});
+			dispatch(controllerActions.saveItem({state:controllerState}));
 		} else {
-			this.props.actions.setErrors({errors:errors.errorMap});
+			dispatch(controllerActions.setErrors({errors:errors.errorMap}));
 		}
 	}
 	
-	onModify = (item) => {
+	const onModify = (item) => {
 		let id = null;
 		if (item != null && item.id != null) {
 			id = item.id;
 		}
 		fuLogger.log({level:'TRACE',loc:'ControllerContainer::onModify',msg:"test"+id});
-		this.props.actions.modifyItem({id,appPrefs:this.props.appPrefs});
+		dispatch(controllerActions.modifyItem({id,appPrefs:appPrefs}));
 	}
 	
-	onDelete = (item) => {
+	const onDelete = (item) => {
 		fuLogger.log({level:'TRACE',loc:'ControllerContainer::onDelete',msg:"test"});
 		if (item != null && item.id != "") {
-			this.props.actions.deleteItem({state:this.props.controllerState,id:item.id});
+			dispatch(controllerActions.deleteItem({state:controllerState,id:item.id}));
 		}
 	}
 	
-	openDeleteModal = (item) => {
-		this.props.actions.openDeleteModal({item});
+	const openDeleteModal = (item) => {
+		dispatch(controllerActions.openDeleteModal({item}));
 	}
 	
-	onOption = (code, item) => {
+	const onOption = (code, item) => {
 		fuLogger.log({level:'TRACE',loc:'ControllerContainer::onOption',msg:" code "+code});
 		switch(code) {
 			case 'MODIFY': {
@@ -169,73 +165,59 @@ class ControllerContainer extends Component {
 				break;
 			}
 			case 'PLUGS': {
-				this.props.history.push({pathname:'/member-plug',state:{parent:item,parentType:"CONTROLLER"}});
+				navigate('/member-plug',{state:{parent:item,parentType:"CONTROLLER"}});
+				// this.props.history.push({pathname:'/member-plug',state:{parent:item,parentType:"CONTROLLER"}});
 				break;
 			}
 		}
 	}
 	
-	closeModal = () => {
-		this.props.actions.closeDeleteModal();
+	const closeModal = () => {
+		dispatch(controllerActions.closeDeleteModal());
 	}
 	
-	onCancel = () => {
+	const onCancel = () => {
 		fuLogger.log({level:'TRACE',loc:'ControllerContainer::onCancel',msg:"test"});
-		this.props.actions.list({state:this.props.controllerState});
+		dispatch(controllerActions.list({state:controllerState}));
 	}
 	
-	inputChange = (type,field,value,event) => {
+	const inputChange = (type,field,value,event) => {
 		utils.inputChange({type,props:this.props,field,value,event});
 	}
 
-	goBack = () => {
+	const goBack = () => {
 		fuLogger.log({level:'TRACE',loc:'ControllerContainer::goBack',msg:"test"});
 		this.props.history.goBack();
 	}
 
-	render() {
-		fuLogger.log({level:'TRACE',loc:'ControllerContainer::render',msg:"Hi there"});
-		if (this.props.controllerState.isModifyOpen) {
-			return (
-				<ControllerModifyView
-				itemState={this.props.controllerState}
-				appPrefs={this.props.appPrefs}
-				onSave={this.onSave}
-				onCancel={this.onCancel}
-				onReturn={this.onCancel}
-				inputChange={this.inputChange}
-				onBlur={this.onBlur}/>
-			);
-		} else if (this.props.controllerState.items != null) {
-			return (
-				<ControllerView
-				itemState={this.props.controllerState}
-				appPrefs={this.props.appPrefs}
-				closeModal={this.closeModal}
-				onOption={this.onOption}
-				inputChange={this.inputChange}
-				goBack={this.goBack}
-				session={this.props.session}
-				/>
-			);
-		} else {
-			return (<div> Loading... </div>);
-		}
+	fuLogger.log({level:'TRACE',loc:'ControllerContainer::render',msg:"Hi there"});
+	if (controllerState.isModifyOpen) {
+		return (
+			<ControllerModifyView
+			itemState={controllerState}
+			appPrefs={appPrefs}
+			onSave={onSave}
+			onCancel={onCancel}
+			onReturn={onCancel}
+			inputChange={inputChange}
+			onBlur={onBlur}/>
+		);
+	} else if (controllerState.items != null) {
+		return (
+			<ControllerView
+			itemState={controllerState}
+			appPrefs={appPrefs}
+			closeModal={closeModal}
+			onOption={onOption}
+			onOrderBy={onOrderBy}
+			inputChange={inputChange}
+			goBack={goBack}
+			session={session}
+			/>
+		);
+	} else {
+		return (<div> Loading... </div>);
 	}
 }
 
-ControllerContainer.propTypes = {
-		appPrefs: PropTypes.object,
-		actions: PropTypes.object,
-		controllerState: PropTypes.object,
-		session: PropTypes.object
-	};
-
-function mapStateToProps(state, ownProps) {
-	return { appPrefs:state.appPrefs, controllerState:state.controllerState, session:state.session };
-}
-
-function mapDispatchToProps(dispatch) {
-	return { actions:bindActionCreators(controllerActions,dispatch) };
-}
-export default connect(mapStateToProps,mapDispatchToProps)(ControllerContainer);
+export default ControllerContainer;

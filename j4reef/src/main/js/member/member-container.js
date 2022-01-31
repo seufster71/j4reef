@@ -2,10 +2,8 @@
 * Author Edward Seufert
 */
 'use strict';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {Routes, Route, Navigate} from "react-router-dom";
 import * as memberActions from './member-actions';
 import LoginContainer from '../core/usermgnt/login-container';
@@ -22,46 +20,49 @@ import MemberView from '../memberView/member-view';
 import fuLogger from '../core/common/fu-logger';
 import {PrivateRoute} from '../core/common/utils';
 
-class MemberContainer extends Component {
-  constructor(props) {
-		super(props);
+function MemberContainer() {
+	const memberState = useSelector((state) => state.member);
+	const session = useSelector((state) => state.session);
+	const appPrefs = useSelector((state) => state.appPrefs);
+	const appMenus = useSelector((state) => state.appMenus);
+	const dispatch = useDispatch();
 
-    this.changeTab = this.changeTab.bind(this);
-	}
+	useEffect(() => {
+		dispatch(memberActions.initMember());
+  	}, []);
 
-  componentDidMount() {
-    this.props.actions.initMember();
-  }
+	const changeTab = (e) => {
+      	//this.setState({activeTab:code});
+     	// this.props.history.replace(index);
+  	}
 
-  changeTab(code,index) {
-      //this.setState({activeTab:code});
-      this.props.history.replace(index);
-  }
-
-  render() {
     fuLogger.log({level:'TRACE',loc:'MemberContainer::render',msg:"path "+ window.location.pathname});
 
     let myMenus = [];
-    if (this.props.appMenus != null && this.props.appMenus[this.props.appPrefs.memberMenu] != null) {
-      myMenus = this.props.appMenus[this.props.appPrefs.memberMenu];
+    if (appMenus != null && appMenus[appPrefs.memberMenu] != null) {
+      myMenus = appMenus[appPrefs.memberMenu];
     }
     let profileMenu = [];
-    if (this.props.appMenus != null && this.props.appMenus.MEMBER_PROFILE_MENU_TOP != null) {
-    	profileMenu = this.props.appMenus.MEMBER_PROFILE_MENU_TOP;
+    if (appMenus != null && appMenus.MEMBER_PROFILE_MENU_TOP != null) {
+    	profileMenu = appMenus.MEMBER_PROFILE_MENU_TOP;
     }
     let myPermissions = {};
-    if (this.props.session != null && this.props.session.user != null && this.props.session.user.permissions != null) {
-      myPermissions = this.props.session.user.permissions;
+    if (session != null && session.user != null && session.user.permissions != null) {
+      myPermissions = session.user.permissions;
     }
     if (myMenus.length > 0) {
       return (
         <MemberView>
-          <NavigationView appPrefs={this.props.appPrefs} permissions={myPermissions}
-          menus={myMenus} changeTab={this.changeTab} activeTab={window.location.pathname} user={this.props.session.user} profileMenu={profileMenu}/>
+          <NavigationView appPrefs={appPrefs} permissions={myPermissions}
+          menus={myMenus} changeTab={changeTab} activeTab={window.location.pathname} user={session.user} profileMenu={profileMenu}/>
           <StatusView/>
           <Routes>
-            <Route path="member-controller" element={<PrivateRoute permissions={myPermissions} code="MCTR" minRights="W" pathto="/access-denied" component="<ControllerContainer />" />} />
-            <Route path="/member-plug/*" element={<PrivateRoute permissions={myPermissions} code="MPL" minRights="W" pathto="/access-denied" component="<PlugContainer />" />} />
+            <Route element={<PrivateRoute permissions={myPermissions} code="MCTR" minRights="W" pathto="/access-denied" />} >
+				<Route path="/member-controller/*" element={<ControllerContainer />} />
+			</Route>
+            <Route element={<PrivateRoute permissions={myPermissions} code="MPL" minRights="W" pathto="/access-denied" />} >
+				<Route path="/member-plug/*" element={<PlugContainer />} />
+			</Route>
             <Route path="/member-schedule/*" element={<PrivateRoute permissions={myPermissions} code="MPL" minRights="W" pathto="/access-denied" component="<ScheduleContainer />" />} />
             <Route path="/member-profile/*" element={<PrivateRoute permissions={myPermissions} code="MP" minRights="W" pathto="/access-denied" component="<ProfileContainer />" />} />
             <Route path="/member-logout/*" element={<PrivateRoute permissions={myPermissions} code="MLO" pathto="/access-denied" component="<LogoutContainer />" />} />
@@ -77,25 +78,6 @@ class MemberContainer extends Component {
         </MemberView>
       );
     }
-  }
 }
 
-MemberContainer.propTypes = {
-	appPrefs: PropTypes.object.isRequired,
-	appMenus: PropTypes.object,
-	lang: PropTypes.string,
-  session: PropTypes.object,
-  member: PropTypes.object,
-	actions: PropTypes.object,
-  history: PropTypes.object
-};
-
-function mapStateToProps(state, ownProps) {
-  return {appPrefs:state.appPrefs, appMenus:state.appMenus, lang:state.lang, session:state.session, member:state.member};
-}
-
-function mapDispatchToProps(dispatch) {
-  return { actions:bindActionCreators(memberActions,dispatch) };
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(MemberContainer);
+export default MemberContainer;

@@ -10,7 +10,7 @@ module.exports = merge(common, {
   devServer: {
     liveReload: true,
     historyApiFallback: true,
-    proxy: [{ context: ["/api/**","/libs/**","/css/**"],target: 'http://localhost:8090' }]
+    proxy: [{ context: ["/api/**","/libs/**","/css/**","/img/**'"],target: 'http://localhost:8090' }]
   },
   plugins: [
 	    new HtmlWebpackPlugin({

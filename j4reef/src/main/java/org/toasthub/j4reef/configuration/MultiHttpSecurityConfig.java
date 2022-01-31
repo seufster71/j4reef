@@ -38,14 +38,15 @@ public class MultiHttpSecurityConfig {
 		protected void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable()
 				.antMatcher("/api/**")
-			//	.addFilterAfter(toasthubLoginFilter(), BasicAuthenticationFilter.class)
-				.exceptionHandling()
-				.authenticationEntryPoint(restAuthenticationEntryPoint)
-				.and().httpBasic()
-				.and()
+			//	.addFilterAfter(toasthubLoginFilter(), BasicAuthenticationFilter.class)=
 				.authorizeRequests()
 					.antMatchers("/api/public/**").permitAll()
-					.anyRequest().authenticated();
+					.anyRequest().authenticated()
+					.and()
+				.httpBasic()
+				.and()
+				.exceptionHandling()
+				.authenticationEntryPoint(restAuthenticationEntryPoint);
 		}
 	}
 

@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 'use-strict';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import * as scheduleActions from './schedule-actions';
 import ScheduleView from './../../memberView/schedule/schedule-view.js'
 import ScheduleModifyView from './../../memberView/schedule/schedule-modify-view.js'
@@ -25,20 +23,20 @@ import fuLogger from '../../core/common/fu-logger';
 import utils from '../../core/common/utils';
 
 // test
-class ScheduleContainer extends Component {
-	constructor(props) {
-		super(props);
-	}
+function ScheduleContainer() {
+	const scheduleState = useSelector((state) => state.scheduleState);
+	const appPrefs = useSelector((state) => state.appPrefs);
+	const session = useSelector((state) => state.session);
+	const dispatch = useDispatch();
 
-	componentDidMount() {
-		if (this.props.history.location.state != null && this.props.history.location.state.parent != null) {
-			this.props.actions.init({parent:this.props.history.location.state.parent,parentType:this.props.history.location.state.parentType});
-		} else {
-			this.props.actions.init({});
-		}
+
+	if (this.props.history.location.state != null && this.props.history.location.state.parent != null) {
+		dispatch(scheduleActions.init({parent:this.props.history.location.state.parent,parentType:this.props.history.location.state.parentType}));
+	} else {
+		dispatch(scheduleActions.init({}));
 	}
 	
-	onListLimitChange = (fieldName, event) => {
+	function onListLimitChange(fieldName, event) {
 		let value = 20;
 		if (this.props.codeType === 'NATIVE') {
 			value = event.nativeEvent.text;
@@ -47,16 +45,16 @@ class ScheduleContainer extends Component {
 		}
 
 		let listLimit = parseInt(value);
-		this.props.actions.listLimit({state:this.props.scheduleState,listLimit});
+		dispatch(scheduleActions.listLimit({state:scheduleState,listLimit}));
 	}
 
-	onPaginationClick = (value) => {
+	function onPaginationClick(value) {
 		fuLogger.log({level:'TRACE',loc:'ScheduleContainer::onPaginationClick',msg:"fieldName "+ value});
-		let listStart = this.props.scheduleState.listStart;
+		let listStart = scheduleState.listStart;
 		let paginationSegment = 1;
 		let oldValue = 1;
-		if (this.props.scheduleState.paginationSegment != ""){
-			oldValue = this.props.scheduleState.paginationSegment;
+		if (scheduleState.paginationSegment != ""){
+			oldValue = scheduleState.paginationSegment;
 		}
 		if (value === "prev") {
 			paginationSegment = oldValue - 1;
@@ -65,49 +63,49 @@ class ScheduleContainer extends Component {
 		} else {
 			paginationSegment = value;
 		}
-		listStart = ((paginationSegment - 1) * this.props.scheduleState.listLimit);
+		listStart = ((paginationSegment - 1) * scheduleState.listLimit);
 		
-		this.props.actions.list({state:this.props.scheduleState,listStart,paginationSegment});
+		dispatch(scheduleActions.list({state:scheduleState,listStart,paginationSegment}));
 	}
 
-	onSearchChange = (fieldName, event) => {
+	function onSearchChange(fieldName, event) {
 		if (event.type === 'keypress') {
 			if (event.key === 'Enter') {
 				this.onSearchClick(fieldName,event);
 			}
 		} else {
 			if (this.props.codeType === 'NATIVE') {
-				this.props.actions.searchChange({[fieldName]:event.nativeEvent.text});
+				dispatch(scheduleActions.searchChange({[fieldName]:event.nativeEvent.text}));
 			} else {
-				this.props.actions.searchChange({[fieldName]:event.target.value});
+				dispatch(scheduleActions.searchChange({[fieldName]:event.target.value}));
 			}
 		}
 	}
 
-	onSearchClick = (fieldName, event) => {
+	function onSearchClick(fieldName, event) {
 		let searchCriteria = [];
 		if (fieldName === 'SCHEDULE-SEARCHBY') {
 			if (event != null) {
 				for (let o = 0; o < event.length; o++) {
 					let option = {};
-					option.searchValue = this.props.scheduleState.searchValue;
+					option.searchValue = scheduleState.searchValue;
 					option.searchColumn = event[o].value;
 					searchCriteria.push(option);
 				}
 			}
 		} else {
-			for (let i = 0; i < this.props.scheduleState.searchCriteria.length; i++) {
+			for (let i = 0; i < scheduleState.searchCriteria.length; i++) {
 				let option = {};
-				option.searchValue = this.props.scheduleState.searchValue;
-				option.searchColumn = this.props.scheduleState.searchCriteria[i].searchColumn;
+				option.searchValue = scheduleState.searchValue;
+				option.searchColumn = scheduleState.searchCriteria[i].searchColumn;
 				searchCriteria.push(option);
 			}
 		}
 
-		this.props.actions.search({state:this.props.scheduleState,searchCriteria});
+		dispatch(scheduleActions.search({state:scheduleState,searchCriteria}));
 	}
 
-	onOrderBy = (selectedOption, event) => {
+	function onOrderBy(selectedOption, event) {
 		fuLogger.log({level:'TRACE',loc:'ScheduleContainer::onOrderBy',msg:"id " + selectedOption});
 		let orderCriteria = [];
 		if (event != null) {
@@ -128,41 +126,41 @@ class ScheduleContainer extends Component {
 			let option = {orderColumn:"SCHEDULE_TABLE_NAME",orderDir:"ASC"};
 			orderCriteria.push(option);
 		}
-		this.props.actions.orderBy({state:this.props.scheduleState,orderCriteria});
+		dispatch(scheduleActions.orderBy({state:scheduleState,orderCriteria}));
 	}
 	
-	onSave = () => {
+	function onSave() {
 		fuLogger.log({level:'TRACE',loc:'ScheduleContainer::onSave',msg:"test"});
-		let errors = utils.validateFormFields(this.props.scheduleState.prefForms.SCHEDULE_FORM,this.props.scheduleState.inputFields);
+		let errors = utils.validateFormFields(scheduleState.prefForms.SCHEDULE_FORM,scheduleState.inputFields);
 		
 		if (errors.isValid){
-			this.props.actions.saveItem({state:this.props.scheduleState});
+			dispatch(scheduleActions.saveItem({state:scheduleState}));
 		} else {
-			this.props.actions.setErrors({errors:errors.errorMap});
+			dispatch(scheduleActions.setErrors({errors:errors.errorMap}));
 		}
 	}
 	
-	onModify = (item) => {
+	function onModify(item) {
 		let id = null;
 		if (item != null && item.id != null) {
 			id = item.id;
 		}
 		fuLogger.log({level:'TRACE',loc:'ScheduleContainer::onModify',msg:"test"+id});
-		this.props.actions.modifyItem({id,parentId:this.props.scheduleState.parent.id,appPrefs:this.props.appPrefs});
+		dispatch(scheduleActions.modifyItem({id,parentId:scheduleState.parent.id,appPrefs:appPrefs}));
 	}
 	
-	onDelete = (item) => {
+	function onDelete(item) {
 		fuLogger.log({level:'TRACE',loc:'ScheduleContainer::onDelete',msg:"test"});
 		if (item != null && item.id != "") {
-			this.props.actions.deleteItem({state:this.props.scheduleState,id:item.id});
+			dispatch(scheduleActions.deleteItem({state:scheduleState,id:item.id}));
 		}
 	}
 	
-	openDeleteModal = (item) => {
-		this.props.actions.openDeleteModal({item});
+	function openDeleteModal(item) {
+		dispatch(scheduleActions.openDeleteModal({item}));
 	}
 	
-	onOption = (code, item) => {
+	function onOption(code, item) {
 		fuLogger.log({level:'TRACE',loc:'ScheduleContainer::onOption',msg:" code "+code});
 		switch(code) {
 			case 'MODIFY': {
@@ -176,67 +174,51 @@ class ScheduleContainer extends Component {
 		}
 	}
 	
-	closeModal = () => {
-		this.props.actions.closeDeleteModal();
+	function closeModal() {
+		dispatch(scheduleActions.closeDeleteModal());
 	}
 	
-	onCancel = () => {
+	function onCancel() {
 		fuLogger.log({level:'TRACE',loc:'ScheduleContainer::onCancel',msg:"test"});
-		this.props.actions.list({state:this.props.scheduleState});
+		dispatch(scheduleActions.list({state:scheduleState}));
 	}
 	
-	inputChange = (type,field,value,event) => {
+	function inputChange(type,field,value,event) {
 		utils.inputChange({type,props:this.props,field,value,event});
 	}
 
-	goBack = () => {
+	function goBack() {
 		fuLogger.log({level:'TRACE',loc:'ScheduleContainer::goBack',msg:"test"});
 		this.props.history.goBack();
 	}
 
-	render() {
-		fuLogger.log({level:'TRACE',loc:'ScheduleContainer::render',msg:"Hi there"});
-		if (this.props.scheduleState.isModifyOpen) {
-			return (
-				<ScheduleModifyView
-				itemState={this.props.scheduleState}
-				appPrefs={this.props.appPrefs}
-				onSave={this.onSave}
-				onCancel={this.onCancel}
-				onReturn={this.onCancel}
-				inputChange={this.inputChange}
-				onBlur={this.onBlur}/>
-			);
-		} else if (this.props.scheduleState.items != null) {
-			return (
-				<ScheduleView
-				itemState={this.props.scheduleState}
-				appPrefs={this.props.appPrefs}
-				closeModal={this.closeModal}
-				onOption={this.onOption}
-				inputChange={this.inputChange}
-				goBack={this.goBack}
-				session={this.props.session}
-				/>
-			);
-		} else {
-			return (<div> Loading... </div>);
-		}
+	fuLogger.log({level:'TRACE',loc:'ScheduleContainer::render',msg:"Hi there"});
+	if (scheduleState.isModifyOpen) {
+		return (
+			<ScheduleModifyView
+			itemState={scheduleState}
+			appPrefs={appPrefs}
+			onSave={onSave}
+			onCancel={onCancel}
+			onReturn={onCancel}
+			inputChange={inputChange}
+			onBlur={onBlur}/>
+		);
+	} else if (scheduleState.items != null) {
+		return (
+			<ScheduleView
+			itemState={scheduleState}
+			appPrefs={appPrefs}
+			closeModal={closeModal}
+			onOption={onOption}
+			inputChange={inputChange}
+			goBack={goBack}
+			session={session}
+			/>
+		);
+	} else {
+		return (<div> Loading... </div>);
 	}
 }
 
-ScheduleContainer.propTypes = {
-		appPrefs: PropTypes.object,
-		actions: PropTypes.object,
-		scheduleState: PropTypes.object.isRequired,
-		session: PropTypes.object
-	};
-
-function mapStateToProps(state, ownProps) {
-	return { appPrefs:state.appPrefs, scheduleState:state.scheduleState, session:state.session };
-}
-
-function mapDispatchToProps(dispatch) {
-	return { actions:bindActionCreators(scheduleActions,dispatch) };
-}
-export default connect(mapStateToProps,mapDispatchToProps)(ScheduleContainer);
+export default ScheduleContainer;
